@@ -1,10 +1,23 @@
 import React from 'react'
+import { api } from '../config/api';
 
 const Publisher = () => {
+    const handleSubmit=async (e)=>{
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const publisherContent = {
+            heading:data.get('heading'),
+            description:data.get('description'),
+            image:data.get('file-upload')
+        }
+        console.log(publisherContent)
+       const response = await api.post("/thoughtINC/create",publisherContent)
+        console.log("got response",response)
+    }
   return (
-      <form>
+      <form onSubmit={handleSubmit}>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
+              <div className="sm:col-span-full">
                   <label htmlFor="heading" className="block text-sm/6 font-medium text-white">
                       Heading
                   </label>
