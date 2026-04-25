@@ -15,8 +15,11 @@ const Publisher = () => {
             image:data.get('file-upload')
         }
         console.log(publisherContent)
-       const response = await api.post("/thoughtINC/create",publisherContent)
-        console.log("got response",response)
+        const response = await api.post("/thoughtINC/create", publisherContent, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
         if(response){
          toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});        
         }
