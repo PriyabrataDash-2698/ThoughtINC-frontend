@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { api } from '../config/api';
 
 import { Toast } from 'primereact/toast';
@@ -6,6 +6,7 @@ import { Toast } from 'primereact/toast';
 
 const Publisher = () => {
      const toast = useRef(null);
+     const [preview,setPreview] = useState(null);
     const handleSubmit=async (e)=>{
         e.preventDefault();
         const data = new FormData(e.currentTarget);
@@ -23,6 +24,21 @@ const Publisher = () => {
         if(response){
          toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});        
         }
+    }
+    const handleImagePreview = (e) =>{
+        const file = e.target.files[0];
+        if(file){
+            const imageUrl = URL.createObjectURL(file);
+            setPreview(imageUrl);
+        }
+    }
+    const handleReset = ()=>{
+        const doNull ={
+             heading:'',
+            description:'',
+            image:setPreview(null)
+        }
+        console.log(doNull)
     }
   return (
     <div>
@@ -68,15 +84,19 @@ const Publisher = () => {
                       className="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-indigo-500 hover:text-indigo-300"
                     >
                       <span>Upload an image related to your content</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                      <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleImagePreview}/>
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
                   <p className="text-xs/5 text-gray-400">PNG, JPG, GIF up to 200KB</p>
                 </div>
+                {preview && (
+                    <img src={preview} alt="preview" className='w-64 h-64 object-cover rounded-lg border' />
+                )}
               </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-              <button type="button" className="text-sm/6 font-semibold text-white">
+              <button type="button" className="text-sm/6 font-semibold text-white"
+              onClick={handleReset}>
                   Cancel
               </button>
               <button

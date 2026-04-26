@@ -8,9 +8,6 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const res = await api.get("/thoughtINC/allVlogs");
-
-      console.log("ACTUAL DATA:", res.data);
-
       setVlogs(res.data); 
     } catch (err) {
       console.error(err);
@@ -42,16 +39,7 @@ return(
                 <p className="mt-5 line-clamp-3 text-sm/6 text-gray-400">{post.description}</p>
               </div>
               <div className="relative mt-8 flex items-center gap-x-4 justify-self-end">
-                <img alt="" src={post.uploadImage} className="size-10 rounded-full bg-gray-800" />
-                {/* <div className="text-sm/6">
-                  <p className="font-semibold text-white">
-                    <a href={post.author.href}>
-                      <span className="absolute inset-0" />
-                      {post.author.name}
-                    </a>
-                  </p>
-                  <p className="text-gray-400">{post.author.role}</p>
-                </div> */}
+                <img alt="" src={post.uploadImage} className="w-4/5 h-4/5 rounded-sm bg-gray-800" />
               </div>
             </article>
           ))}
