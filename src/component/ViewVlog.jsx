@@ -4,6 +4,7 @@ import { api } from '../config/api'
 const ViewVlog = () => {
 
 const [vlogs, setVlogs] = useState([]);
+const [isAdmin,setIsAdmin] = useState(false);
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -41,7 +42,7 @@ return(
               <div className="relative mt-8 flex items-center gap-x-4 justify-self-end">
                 <img alt="" src={post.uploadImage} className="w-4/5 h-4/5 rounded-sm bg-gray-800" />
               </div>
-
+            {isAdmin ?
               <div className="mt-6 flex items-center justify-end gap-x-6">
                 <button type="button" className="text-sm/6 font-semibold text-white"
                   >
@@ -54,6 +55,20 @@ return(
                   Approve
                 </button>
               </div>
+              :
+              <div className="mt-6 flex items-center justify-end gap-x-6">
+                <button type="button" className="text-sm/6 font-semibold text-white"
+                  >
+                  like,share,subscribe
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
+                  comment
+                </button>
+              </div>
+              }
             </article>
           ))}
         </div>
