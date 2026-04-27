@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../config/api'
 
+import 'primeicons/primeicons.css';
+ import { Dialog } from 'primereact/dialog';
+ import { Button } from 'primereact/button';
 const ViewVlog = () => {
 
 const [vlogs, setVlogs] = useState([]);
 const [isAdmin,setIsAdmin] = useState(false);
+const [visible,setVisible] = useState(false);
+
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -17,12 +22,23 @@ useEffect(() => {
 
   fetchData();
 }, []);
+const handleComment = (e)=>{
+  console.log(e.target.value);
+  setVisible(false)
+}
+
+const footerContent = (
+        <div>
+            <Button label="No" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
+            <Button label="Yes" icon="pi pi-check" onClick={handleComment} autoFocus />
+        </div>
+    );
 return(
   <div>
     <div className="bg-gray-900 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Admin blog Dashboard</h2>
+          <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{isAdmin ? `Admin blog Dashboard`:`From ThoughtInc Poplular`}</h2>
         </div>
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-700 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {vlogs.map((post) => (
@@ -57,16 +73,22 @@ return(
               </div>
               :
               <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" className="text-sm/6 font-semibold text-white"
-                  >
-                  like,share,subscribe
-                </button>
+                <div><i className='pi pi-thumbs-up'></i></div>
+                <div><i className='pi pi-share-alt'></i></div>
                 <button
                   type="submit"
+                  onClick={() => setVisible(true)}
                   className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                 >
                   comment
                 </button>
+                  <div className="card flex justify-content-center">
+                    <Dialog className='bg-white' header="Comment" visible={visible} footer={footerContent} onHide={() => { if (!visible) return; setVisible(false); }}
+                      style={{ width: '50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
+                      <input type="text" name="comment" id="comment" 
+                            className="border block min-w-0 grow py-1.5 pr-3 pl-1 w-full"/>
+                    </Dialog>
+                  </div>
               </div>
               }
             </article>
