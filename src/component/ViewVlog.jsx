@@ -9,6 +9,7 @@ const ViewVlog = () => {
   const [vlogs, setVlogs] = useState([]);
   const [isAdmin, setIsAdmin] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
 
   useEffect(() => {
@@ -24,16 +25,18 @@ const ViewVlog = () => {
     fetchData();
   }, []);
   const handleComment = (e) => {
-    setAdmincomment(e.target.value);
-    setVisible(false)
+   
   }
   const handleAdminReview = async (id,e) => {
     const adminreview = {
       comment:e=="REJECTED" ? admincomment : null,
       status: e
     }
+    
   const res = await api.put(`/thoughtINC/review/${id}`,adminreview);
-     
+     if(res){
+      setVisibleadmin(false);
+     }
   }
 
   const footerContent = (
@@ -71,15 +74,18 @@ const ViewVlog = () => {
                   <div className="mt-6 flex items-center justify-end gap-x-6">
                     <div>
                     <button type="button" className="text-sm/6 font-semibold text-white"
-                    onClick={()=>handleAdminReview(post.id,"REJECTED")}
+                    onClick = {()=>setVisibleadmin(true)}
                     >
                       Reject
                     </button>
                     <div className="card flex justify-content-center">
-                      <Dialog className='bg-white' header="Comment" visible={visible} footer={footerContent} onHide={() => { if (!visible) return; setVisible(false); }}
+                      <Dialog className='bg-white' header="Comment" visible={visibleadmin} onHide={() => { if (!visibleadmin) return; setVisibleadmin(false); }}
                         style={{ width: '50vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
                         <input type="text" name="comment" id="comment"
+                        onChange={(e)=>setAdmincomment(e.target.value)}
                           className="border block min-w-0 grow py-1.5 pr-3 pl-1 w-full" />
+                            <Button label="No" icon="pi pi-times" onClick={() => setVisibleadmin(false)} className="p-button-text" />
+                            <Button label="Yes" icon="pi pi-check" onClick={()=>handleAdminReview(post.id,"REJECTED")} autoFocus />
                       </Dialog>
                     </div>
                     </div>
