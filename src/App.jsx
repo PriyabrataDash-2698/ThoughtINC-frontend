@@ -8,11 +8,14 @@ import Publisher from './component/Publisher'
 import ViewVlog from './component/ViewVlog'
 
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+import Header from './component/Header'
+import Footer from './component/Footer'
         
 function App() {
   
   return (
     <>
+    <Header/>
     <PrimeReactProvider>
      <BrowserRouter>
      <Routes>
@@ -22,6 +25,7 @@ function App() {
      </Routes>
      </BrowserRouter>
      </PrimeReactProvider>
+     <Footer/>
     </>
   )
 }
