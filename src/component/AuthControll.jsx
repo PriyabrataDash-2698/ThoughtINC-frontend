@@ -13,7 +13,7 @@
 //                 modal
 //                 onHide={() => {if (!show) return; setVisible(false); }}
 //                 content={({ hide }) => (
-//                     <div className="flex flex-column px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
+//                     <div className="flex  px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
 //                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" className="block mx-auto">
 //                             <g mask="url(#mask0_2642_713)">
 //                                 <path
@@ -34,13 +34,13 @@
 //                             <path d="M21.1245 10.1789L24.8545 9.794L22.4862 7.09967H19.7628L21.1245 10.1789Z" fill="white" />
 //                             <path d="M12.1762 10.1789L8.4462 9.794L10.8145 7.09967H13.5378L12.1762 10.1789Z" fill="white" />
 //                         </svg>
-//                         <div className="inline-flex flex-column gap-2">
+//                         <div className=" gap-2">
 //                             <label htmlFor="username" className="text-primary-50 font-semibold">
 //                                 Username
 //                             </label>
 //                             <InputText id="username" label="Username" className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
 //                         </div>
-//                         <div className="inline-flex flex-column gap-2">
+//                         <div className=" gap-2">
 //                             <label htmlFor="username" className="text-primary-50 font-semibold">
 //                                 Username
 //                             </label>
@@ -67,7 +67,7 @@ import { InputText } from 'primereact/inputtext';
 
 export default function AuthControll() {
     const [visible, setVisible] = useState(false);
-
+    
     return (
         <div className="card flex justify-content-center">
             <Button label="Login" icon="pi pi-user" onClick={() => setVisible(true)} />
@@ -76,22 +76,24 @@ export default function AuthControll() {
                 modal
                 onHide={() => {if (!visible) return; setVisible(false); }}
                 content={({ hide }) => (
-                    <div className="flex flex-column px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
+                    <div className="px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
                        
-                        <div className="inline-flex flex-column gap-2">
+                        <div className="flex justify-between items-center py-2 gap-2">
                             <label htmlFor="username" className="text-primary-50 font-semibold">
-                                Username
+                                Email
                             </label>
                             <InputText id="username" label="Username" className="bg-white-alpha-20 border-none p-3 text-primary-50"></InputText>
                         </div>
-                        <div className="inline-flex flex-column gap-2">
+                        <div className="flex justify-between items-center py-2 gap-2">
                             <label htmlFor="username" className="text-primary-50 font-semibold">
-                                Username
+                                Password
                             </label>
                             <InputText id="password" label="Password" className="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"></InputText>
                         </div>
-                        <div className="flex align-items-center gap-2">
+                        <div className="py-2 gap-2">
                             <Button label="Sign-In" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                        </div>
+                        <div>
                             <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
                     </div>
