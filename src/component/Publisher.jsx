@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { api } from '../config/api';
+import { showToast } from '../hook/UseToast';
 
-import { Toast } from 'primereact/toast';
+
         
 
 const Publisher = () => {
-     const toast = useRef(null);
+     
      const [preview,setPreview] = useState(null);
     const handleSubmit=async (e)=>{
         e.preventDefault();
@@ -22,7 +23,12 @@ const Publisher = () => {
             }
         })
         if(response){
-         toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});        
+            showToast({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Vlog Created Successfully',
+                life: 3000
+            });       
         }
     }
     const handleImagePreview = (e) =>{
@@ -42,7 +48,6 @@ const Publisher = () => {
     }
   return (
     <div>
-        <Toast ref={toast} />
       <form onSubmit={handleSubmit}>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-full">

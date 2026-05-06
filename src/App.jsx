@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { Route, Routes } from 'react-router-dom'
 
@@ -10,11 +10,19 @@ import ViewVlog from './component/ViewVlog'
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 import Header from './component/Header'
 import Footer from './component/Footer'
+import { Toast } from 'primereact/toast'
+import { setToastRef } from './hook/UseToast'
+
         
 function App() {
-  
+   const toast = useRef(null);
+
+  useEffect(() => {
+    setToastRef(toast.current);
+  }, []);
   return (
     <>
+<Toast ref={toast} />
     <Header/>
     <PrimeReactProvider>
      <BrowserRouter>
