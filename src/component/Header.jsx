@@ -7,8 +7,11 @@ const Header = () => {
     <div>
         <a href="http://">Publish</a>
         <a href="">home</a>
+        <div>
         <button onClick={()=>setShow(true)}>Login</button>
-        <AuthControll visible={show}/>
+        <AuthControll show={show} setShow={setShow}/>
+        
+        </div>
         <a href="signup">signup</a>
     </div>
   )

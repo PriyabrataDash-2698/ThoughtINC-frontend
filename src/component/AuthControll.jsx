@@ -5,8 +5,8 @@ import { InputText } from 'primereact/inputtext';
 import { api } from "../config/api";
 import { showToast } from "../hook/UseToast";
 
-export default function AuthControll() {
-    const [visible, setVisible] = useState(false);
+export default function AuthControll({show,setShow}) {
+    // const [visible, setVisible] = useState(false);
     const handleSignIn = async(e) =>{
         e.preventDefault();
         const data = new FormData(e.currentTarget)
@@ -26,17 +26,16 @@ export default function AuthControll() {
                 detail: 'Login successful',
                 life: 3000
             });
-            setVisible(false)
+            setShow(false)
         }
         
     }
     return (
         <div className="card flex justify-content-center">
-            <Button label="Login" icon="pi pi-user" onClick={() => setVisible(true)} />
             <Dialog
-                visible={visible}
+                visible={show}
                 modal
-                onHide={() => { if (!visible) return; setVisible(false); }}
+                onHide={() => { if (!show) return; setShow(false); }}
                 content={({ hide }) => (
                     <div className="px-8 py-5 gap-4" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))' }}>
                         <form action="" onSubmit={handleSignIn}>
@@ -56,7 +55,7 @@ export default function AuthControll() {
                             <Button label="Sign-In" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
                         <div>
-                            <Button label="Cancel" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button onClick={(e) => hide(e)}  label="Cancel" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
                         </form>
                     </div>
