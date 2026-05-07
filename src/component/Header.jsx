@@ -1,19 +1,34 @@
 import React, { useState } from 'react'
 import AuthControll from './AuthControll';
+import SignupController from './SignupController';
+import { Button } from 'primereact/button';
 
 const Header = () => {
-    const [show,setShow]= useState(false);
+    const [showlogin,setShowlogin]= useState(false);
+    const [showsignup,setShowsignup]= useState(false);
   return (
-    <div>
-        <a href="http://">Publish</a>
-        <a href="">home</a>
-        <div>
-        <button onClick={()=>setShow(true)}>Login</button>
-        <AuthControll show={show} setShow={setShow}/>
-        
+    <>  
+      <div className='flex justify-between'>
+        <div className='text-2xl font-bold'>
+          Thought <span className='text-amber-400'>INC</span>
+          <span className='ml-2 text-[10px]'>A FalseFire Company</span>
+          </div>
+        <div className='flex'>
+          <div>
+            <Button  severity="secondary" raised onClick={() => setShowlogin(true)}>Login</Button>
+            <AuthControll show={showlogin} setShow={setShowlogin} />
+          </div>
+          <div className='ml-2'>
+            <Button severity="info" raised onClick={() => sessionStorage.clear()}>Logout</Button>
+          </div>
+          <div className='ml-2'>
+            <Button severity="warning" raised onClick={() => setShowsignup(true)}>SignUp</Button>
+            <SignupController showsignup={showsignup} setShowsignup={setShowsignup}/>
+          </div>
         </div>
-        <a href="signup">signup</a>
-    </div>
+      </div>
+    </>
+
   )
 }
 

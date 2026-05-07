@@ -12,10 +12,17 @@ const ViewVlog = () => {
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
 
+  let jwt = sessionStorage.getItem("JWT");
+  console.log(jwt);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get("/thoughtINC/allVlogs");
+        const res = await api.get("/thoughtINC/allVlogs",{
+          headers:{
+            Authorization:`Bearer ${jwt}`
+          }
+        });
         setVlogs(res.data);
       } catch (err) {
         console.error(err);
