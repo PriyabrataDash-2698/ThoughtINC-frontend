@@ -8,6 +8,7 @@ import { showToast } from '../hook/UseToast';
 const Publisher = () => {
      
      const [preview,setPreview] = useState(null);
+     let jwt = sessionStorage.getItem("JWT");
     const handleSubmit=async (e)=>{
         e.preventDefault();
         const data = new FormData(e.currentTarget);
@@ -16,9 +17,10 @@ const Publisher = () => {
             description:data.get('description'),
             image:data.get('file-upload')
         }
-        console.log(publisherContent)
+        
         const response = await api.post("/thoughtINC/create", publisherContent, {
             headers: {
+                Authorization: `Bearer ${jwt}`,
                 "Content-Type": "multipart/form-data"
             }
         })
