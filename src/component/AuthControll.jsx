@@ -7,14 +7,15 @@ import { showToast } from "../hook/UseToast";
 import { jwtDecode } from "jwt-decode";
 
 export default function AuthControll({show,setShow,setUsername,setIsloggedin}) {
-    // const [visible, setVisible] = useState(false);
     const handleSignIn = async(e) =>{
         e.preventDefault();
-        const data = new FormData(e.currentTarget)
+        const data = new FormData(e.target)
+
         const signInPayload = {
             email:data.get('email'),
             password:data.get('password')
         }
+
         const token = await api.post("/auth/login",signInPayload,{
             headers:{
                 "Content-Type":"application/json"
@@ -59,10 +60,10 @@ export default function AuthControll({show,setShow,setUsername,setIsloggedin}) {
                             <InputText id="password" name="password" className="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"></InputText>
                         </div>
                         <div className="py-2 gap-2">
-                            <Button label="Sign-In" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <button text className="bg-blue-400 p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10 text-black">Sign-In</button>
                         </div>
                         <div>
-                            <Button onClick={(e) => hide(e)}  label="Cancel" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <button onClick={(e) => hide(e)} text className="bg-red-500 p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10 text-black">Cancel</button>
                         </div>
                         </form>
                     </div>

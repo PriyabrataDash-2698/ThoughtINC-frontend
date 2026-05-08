@@ -19,7 +19,7 @@ const ViewVlog = () => {
     const fetchData = async () => {
       try {
         const res = await api.get("/thoughtINC/allVlogs",{
-          headers:jwt ? { Authorization:`Bearer ${jwt}`} : {}
+          headers:jwt ? { Authorization:`Bearer ${jwt}`,} : {}
         });
         setVlogs(res.data);
       } catch (err) {
