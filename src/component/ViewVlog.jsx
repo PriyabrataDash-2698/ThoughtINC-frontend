@@ -12,10 +12,10 @@ const ViewVlog = () => {
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
 
-  let jwt = sessionStorage.getItem("JWT");
-  console.log(jwt);
+  
 
   useEffect(() => {
+    let jwt = sessionStorage.getItem("JWT");
     const fetchData = async () => {
       try {
         const res = await api.get("/thoughtINC/allVlogs",{

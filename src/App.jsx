@@ -12,18 +12,31 @@ import Header from './component/Header'
 import Footer from './component/Footer'
 import { Toast } from 'primereact/toast'
 import { setToastRef } from './hook/UseToast'
-
+import { jwtDecode } from "jwt-decode";
         
 function App() {
    const toast = useRef(null);
 
-  useEffect(() => {
+   const [username,setUsername] = useState("");
+   const [isLoggedin,setIsloggedin] = useState(false);
+
+   useEffect(()=>{
     setToastRef(toast.current);
-  }, []);
+    const token = sessionStorage.getItem("JWT");
+     if(token){
+      const decoded = jwtDecode(token);
+      
+      setIsloggedin(true);
+      setUsername(decoded?.name);
+    }
+   },[])
   return (
     <>
 <Toast ref={toast} />
-    <Header/>
+    <Header username={username}
+            setUsername={setUsername}
+            isLoggedin={isLoggedin}
+            setIsloggedin={setIsloggedin}/>
     <PrimeReactProvider>
      <BrowserRouter>
      <Routes>

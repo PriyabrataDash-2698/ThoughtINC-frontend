@@ -4,8 +4,9 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { api } from "../config/api";
 import { showToast } from "../hook/UseToast";
+import { jwtDecode } from "jwt-decode";
 
-export default function AuthControll({show,setShow}) {
+export default function AuthControll({show,setShow,setUsername,setIsloggedin}) {
     // const [visible, setVisible] = useState(false);
     const handleSignIn = async(e) =>{
         e.preventDefault();
@@ -27,7 +28,12 @@ export default function AuthControll({show,setShow}) {
                 life: 3000
             });
             setShow(false);
-            sessionStorage.setItem("JWT",token.data.token)
+            sessionStorage.setItem("JWT",token.data.token);
+            const decoded = jwtDecode(token.data.token);
+
+            setUsername(decoded.name);
+
+            setIsloggedin(true);
         }
         
     }
