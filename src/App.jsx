@@ -19,7 +19,7 @@ function App() {
 
    const [username,setUsername] = useState("");
    const [isLoggedin,setIsloggedin] = useState(false);
-
+   const [userrole,setUserrole] = useState("");
    useEffect(()=>{
     setToastRef(toast.current);
     const token = sessionStorage.getItem("JWT");
@@ -28,6 +28,7 @@ function App() {
       
       setIsloggedin(true);
       setUsername(decoded?.name);
+      setUserrole(decoded?.role);
     }
    },[])
   return (
@@ -42,7 +43,7 @@ function App() {
      <Routes>
       <Route path="/publish" element={<Publisher/>}></Route>
       <Route path='/review'></Route>
-      <Route path='/*' element={<ViewVlog/>}></Route>
+      <Route path='/*' element={<ViewVlog userrole={userrole} />}></Route>
      </Routes>
      </BrowserRouter>
      </PrimeReactProvider>

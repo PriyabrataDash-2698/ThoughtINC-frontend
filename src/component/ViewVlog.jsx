@@ -4,10 +4,9 @@ import { api } from '../config/api'
 import 'primeicons/primeicons.css';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
-const ViewVlog = () => {
+const ViewVlog = ({userrole }) => {
 
   const [vlogs, setVlogs] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(true);
   const [visible, setVisible] = useState(false);
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
@@ -54,8 +53,13 @@ const ViewVlog = () => {
     <div>
       <div className="bg-gray-900 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{isAdmin ? `Admin blog Dashboard` : `From ThoughtInc Poplular`}</h2>
+          <div className="mx-auto max-w-2xl lg:mx-0 flex justify-end">
+            {userrole ?
+              <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{userrole == "ADMIN" ? `Admin blog Dashboard` : `From ThoughtInc Poplular`}</h2>
+              :
+              <h2 className="text-4xl font-semibold tracking-tight text-pretty "><span className='text-white sm:text-5xl'>Watch For</span>
+                <span className='text-2xl text-amber-300 font font-stretch-75% mx-4'>Thoughts</span>Here...</h2>
+            }
           </div>
           <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-700 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {vlogs.map((post) => (
@@ -76,7 +80,7 @@ const ViewVlog = () => {
                   <p className="mt-5 line-clamp-3 text-sm/6 text-gray-400">{post.description}</p>
                 </div>
                 
-                {isAdmin ?
+                {userrole == "ADMIN" &&
                   <div className="mt-6 flex items-center justify-end gap-x-6">
                     <div>
                     <button type="button" className="text-sm/6 font-semibold text-white"
@@ -103,7 +107,8 @@ const ViewVlog = () => {
                       Approve
                     </button>
                   </div>
-                  :
+                }
+                {userrole == "USER" &&
                   <div className="mt-6 flex items-center justify-end gap-x-6">
                     <div><i className='pi pi-thumbs-up'></i></div>
                     <div><i className='pi pi-share-alt'></i></div>
