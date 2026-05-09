@@ -13,6 +13,7 @@ import Footer from './component/Footer'
 import { Toast } from 'primereact/toast'
 import { setToastRef } from './hook/UseToast'
 import { jwtDecode } from "jwt-decode";
+import IndividualVlog from './component/IndividualVlog'
         
 function App() {
    const toast = useRef(null);
@@ -43,7 +44,8 @@ function App() {
      <Routes>
       <Route path="/publish" element={<Publisher/>}></Route>
       <Route path='/review'></Route>
-      <Route path='/*' element={<ViewVlog userrole={userrole} />}></Route>
+      <Route path='/vlogs' element={<ViewVlog userrole={userrole} />}></Route>
+      <Route path='/vlog/:id' element={<IndividualVlog />}></Route>
      </Routes>
      </BrowserRouter>
      </PrimeReactProvider>

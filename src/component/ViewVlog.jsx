@@ -4,15 +4,14 @@ import { api } from '../config/api'
 import 'primeicons/primeicons.css';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 const ViewVlog = ({userrole }) => {
 
   const [vlogs, setVlogs] = useState([]);
   const [visible, setVisible] = useState(false);
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
-
-  
-
+  const navigate = useNavigate();
   useEffect(() => {
     let jwt = sessionStorage.getItem("JWT");
     const fetchData = async () => {
@@ -41,6 +40,10 @@ const ViewVlog = ({userrole }) => {
      if(res){
       setVisibleadmin(false);
      }
+  }
+  const handleIndividualVlog = (vlogid) =>{
+    console.log("hiii from vlogid",vlogid);
+    navigate(`/vlog/${vlogid}`)
   }
 
   const footerContent = (
@@ -72,7 +75,7 @@ const ViewVlog = ({userrole }) => {
                 </div>
                 <div className="group relative grow">
                   <h3 className="mt-3 text-lg/6 font-semibold text-white group-hover:text-gray-300">
-                    <a href="#">
+                    <a href="#" onClick={()=>handleIndividualVlog(post.id)}>
                       <span className="absolute inset-0" />
                       {post.heading}
                     </a>
