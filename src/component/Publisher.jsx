@@ -5,23 +5,28 @@ import { showToast } from '../hook/UseToast';
 
         
 
-const Publisher = () => {
+const Publisher = ({publisherid}) => {
+     console.log(publisherid);
      
      const [preview,setPreview] = useState(null);
      let jwt = sessionStorage.getItem("JWT");
+     console.log(jwt);
+     
     const handleSubmit=async (e)=>{
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const publisherContent = {
             heading:data.get('heading'),
             description:data.get('description'),
-            image:data.get('file-upload')
+            image:preview !== null ? data.get('file-upload') : null,
+            publisherId:publisherid 
         }
+        console.log(publisherContent);
+        
         
         const response = await api.post("/thoughtINC/create", publisherContent, {
             headers: {
-                Authorization: `Bearer ${jwt}`,
-                "Content-Type": "multipart/form-data"
+                Authorization: `Bearer ${jwt}`
             }
         })
         if(response){

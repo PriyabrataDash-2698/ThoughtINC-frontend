@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Navigate } from 'react-router-dom'
 import { Route, Routes } from 'react-router-dom'
 
 
@@ -21,6 +21,7 @@ function App() {
    const [username,setUsername] = useState("");
    const [isLoggedin,setIsloggedin] = useState(false);
    const [userrole,setUserrole] = useState("");
+   const [publisherid,setPublisherid] = useState(0);
    useEffect(()=>{
     setToastRef(toast.current);
     const token = sessionStorage.getItem("JWT");
@@ -30,8 +31,12 @@ function App() {
       setIsloggedin(true);
       setUsername(decoded?.name);
       setUserrole(decoded?.role);
+      setPublisherid(decoded?.publisherid);
+      console.log(decoded);
     }
    },[])
+   
+   
   return (
     <>
 <Toast ref={toast} />
@@ -42,7 +47,11 @@ function App() {
     <PrimeReactProvider>
      <BrowserRouter>
      <Routes>
-      <Route path="/publish" element={<Publisher/>}></Route>
+
+      <Route path='/' element={<Navigate to="/vlogs"/>}></Route>
+
+
+      <Route path="/publish" element={<Publisher publisherid={publisherid}/>}></Route>
       <Route path='/review'></Route>
       <Route path='/vlogs' element={<ViewVlog userrole={userrole} />}></Route>
       <Route path='/vlog/:id' element={<IndividualVlog />}></Route>
