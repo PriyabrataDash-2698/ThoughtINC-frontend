@@ -7,12 +7,15 @@ import { showToast } from '../hook/UseToast';
 
 const Publisher = ({publisherid}) => {
      console.log(publisherid);
-     
-     const [preview,setPreview] = useState(null);
      let jwt = sessionStorage.getItem("JWT");
      console.log(jwt);
      
+     const [preview,setPreview] = useState(null);
+     
+     console.log(jwt);
+     
     const handleSubmit=async (e)=>{
+        let jwt = sessionStorage.getItem("JWT");
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const publisherContent = {
