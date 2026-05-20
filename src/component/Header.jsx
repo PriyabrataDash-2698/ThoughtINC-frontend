@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef} from 'react'
 import AuthControll from './AuthControll';
 import SignupController from './SignupController';
 import { Button } from 'primereact/button';
-
+import { Menu } from 'primereact/menu';
+import { Toast } from 'primereact/toast';
+        
 
 const Header = ({ username,
   setUsername,
@@ -10,14 +12,34 @@ const Header = ({ username,
   setIsloggedin }) => {
   const [showlogin, setShowlogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
-  const initials = username.substring(0,2).toUpperCase();
+  const initials = username.substring(0, 2).toUpperCase();
   const handleLogout = () => {
     sessionStorage.clear();
 
     setUsername("");
     setIsloggedin(false);
   }
-
+  const items = [
+    {
+      label: 'UserName',
+      items: [
+        {
+          label: 'Components',
+          icon: 'pi pi-bolt'
+        },
+        {
+          label: 'Blocks',
+          icon: 'pi pi-server'
+        },
+        {
+          label: 'UI Kit',
+          icon: 'pi pi-pencil'
+        }
+      ]
+    }
+  ]
+  const menuLeft = useRef(null);
+  const toast = useRef(null);
   return (
     <>
       <div className='flex justify-between'>
@@ -37,22 +59,23 @@ const Header = ({ username,
               <SignupController showsignup={showsignup} setShowsignup={setShowsignup} />
             </div>
           </div>) :
-          (<div className='flex justify-around'>
+          (
+          
+          <div className='flex justify-around'>
+            <Toast ref={toast}></Toast>
+            <Menu model={items} popup ref={menuLeft} id="popup_menu_left" />
             <div
+            onClick={(event) => menuLeft.current.toggle(event)} 
+            aria-controls="popup_menu_left" 
+            aria-haspopup 
               className="
-          w-10 h-10
-          rounded-full
-          bg-blue-500
-          text-white
-          flex items-center justify-center
-          font-bold text-lg
-          shadow-md
-        "
+          w-10 h-10 rounded-full bg-blue-500 text-white 
+          flex items-center justify-center font-bold text-lg hadow-md"
             >
               {initials}
             </div>
             <p className='flex items-center text-2xl font-bold ml-2'>
-              
+
               Welcome {username}</p>
             <div className='ml-2'>
               <Button className='bg-blue-500' raised onClick={handleLogout}>Logout</Button>
