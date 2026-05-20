@@ -4,12 +4,15 @@ import SignupController from './SignupController';
 import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
 import { Toast } from 'primereact/toast';
+import { useNavigate } from 'react-router-dom';
         
 
 const Header = ({ username,
   setUsername,
   isLoggedin,
-  setIsloggedin }) => {
+  setIsloggedin,
+userrole
+,setUserrole }) => {
   const [showlogin, setShowlogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
   const initials = username.substring(0, 2).toUpperCase();
@@ -19,24 +22,32 @@ const Header = ({ username,
     setUsername("");
     setIsloggedin(false);
   }
-  const items = [
-    {
-      label: 'UserName',
-      items: [
+  const navigate = useNavigate();
+  const publisheritems = [
         {
-          label: 'Components',
+          label: 'Pending Vlogs',
+          icon: 'pi pi-bolt',
+          command: () => {
+           navigate('/vlogs/PENDING')
+          }
+        },
+        {
+          label: 'Rejected Vlogs',
+          icon: 'pi pi-server',
+          command: () => {
+           navigate('/vlogs/REJECTED')
+          }
+        }
+  ]
+   const Adminitems = [
+        {
+          label: 'Pending Vlogs',
           icon: 'pi pi-bolt'
         },
         {
-          label: 'Blocks',
+          label: 'Rejected Vlogs',
           icon: 'pi pi-server'
-        },
-        {
-          label: 'UI Kit',
-          icon: 'pi pi-pencil'
         }
-      ]
-    }
   ]
   const menuLeft = useRef(null);
   const toast = useRef(null);
@@ -63,7 +74,12 @@ const Header = ({ username,
           
           <div className='flex justify-around'>
             <Toast ref={toast}></Toast>
-            <Menu model={items} popup ref={menuLeft} id="popup_menu_left" />
+            {
+              userrole=="ADMIN"?
+            <Menu model={Adminitems} popup ref={menuLeft} id="popup_menu_left" />
+            :
+             <Menu model={publisheritems} popup ref={menuLeft} id="popup_menu_left" />
+            }
             <div
             onClick={(event) => menuLeft.current.toggle(event)} 
             aria-controls="popup_menu_left" 

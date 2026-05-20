@@ -4,19 +4,23 @@ import { api } from '../config/api'
 import 'primeicons/primeicons.css';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const ViewVlog = ({userrole }) => {
-
+  const { status } = useParams();
   const [vlogs, setVlogs] = useState([]);
   const [visible, setVisible] = useState(false);
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
   const navigate = useNavigate();
+  
+
+  
   useEffect(() => {
+      console.log(status);
     let jwt = sessionStorage.getItem("JWT");
     const fetchData = async () => {
       try {
-        const res = await api.get(`/thoughtINC/vlog?status=APPROVED`,{
+        const res = await api.get(`/thoughtINC/vlog?status=${status}`,{
           headers:jwt ? { Authorization:`Bearer ${jwt}`,} : {}
         });
         setVlogs(res.data);
@@ -26,7 +30,7 @@ const ViewVlog = ({userrole }) => {
     };
 
     fetchData();
-  }, []);
+  }, [status]);
   const handleComment = (e) => {
    
   }

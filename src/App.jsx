@@ -39,26 +39,30 @@ function App() {
    
   return (
     <>
-<Toast ref={toast} />
+
+    <PrimeReactProvider>
+     <BrowserRouter>
+     <Toast ref={toast} />
     <Header username={username}
             setUsername={setUsername}
             isLoggedin={isLoggedin}
-            setIsloggedin={setIsloggedin}/>
-    <PrimeReactProvider>
-     <BrowserRouter>
+            setIsloggedin={setIsloggedin}
+            userrole={userrole}
+            setUserrole={setUserrole}/>
      <Routes>
 
-      <Route path='/' element={<Navigate to="/vlogs"/>}></Route>
+      <Route path='/' element={<Navigate to="/vlogs/APPROVED" replace/>}></Route>
 
 
       <Route path="/publish" element={<Publisher publisherid={publisherid}/>}></Route>
       <Route path='/review'></Route>
-      <Route path='/vlogs' element={<ViewVlog userrole={userrole} />}></Route>
+      <Route path='/vlogs/:status' element={<ViewVlog userrole={userrole} />}></Route>
       <Route path='/vlog/:id' element={<IndividualVlog />}></Route>
      </Routes>
+          <Footer/>
      </BrowserRouter>
      </PrimeReactProvider>
-     <Footer/>
+
     </>
   )
 }
