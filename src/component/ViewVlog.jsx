@@ -5,7 +5,7 @@ import 'primeicons/primeicons.css';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { useNavigate, useParams } from 'react-router-dom';
-const ViewVlog = ({userrole }) => {
+const ViewVlog = ({userrole,publisherid }) => {
   const { status } = useParams();
   const [vlogs, setVlogs] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -16,21 +16,33 @@ const ViewVlog = ({userrole }) => {
 
   
   useEffect(() => {
-      console.log(status);
+    console.log(publisherid)
     let jwt = sessionStorage.getItem("JWT");
     const fetchData = async () => {
       try {
-        const res = await api.get(`/thoughtINC/vlog?status=${status}`,{
+        if(status=="APPROVED"){
+          const res = await api.get(`/thoughtINC/public/vlog`);
+          setVlogs(res.data);
+        }
+        else if(status == "PENDING"){
+          const res = await api.get(`/thoughtINC/vlog?status=${status}`,{
           headers:jwt ? { Authorization:`Bearer ${jwt}`,} : {}
         });
-        setVlogs(res.data);
+        setVlogs(res.data)
+        }
+        else if(status == "REJECTED" && publisherid != null){
+        const res = await api.get(`/thoughtINC/vlog?status=${status}&publisherId=${publisherid}`,{
+          headers:jwt ? { Authorization:`Bearer ${jwt}`,} : {}
+        });
+        setVlogs(res.data)
+      }
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchData();
-  }, [status]);
+  }, [status,publisherid]);
   const handleComment = (e) => {
    
   }

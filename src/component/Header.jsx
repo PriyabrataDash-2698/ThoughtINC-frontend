@@ -13,6 +13,8 @@ const Header = ({ username,
   setIsloggedin,
 userrole
 ,setUserrole }) => {
+  console.log(userrole);
+  
   const [showlogin, setShowlogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
   const initials = username.substring(0, 2).toUpperCase();
@@ -23,14 +25,7 @@ userrole
     setIsloggedin(false);
   }
   const navigate = useNavigate();
-  const publisheritems = [
-        {
-          label: 'Pending Vlogs',
-          icon: 'pi pi-bolt',
-          command: () => {
-           navigate('/vlogs/PENDING')
-          }
-        },
+  const publisheritems = [ 
         {
           label: 'Rejected Vlogs',
           icon: 'pi pi-server',
@@ -42,11 +37,10 @@ userrole
    const Adminitems = [
         {
           label: 'Pending Vlogs',
-          icon: 'pi pi-bolt'
-        },
-        {
-          label: 'Rejected Vlogs',
-          icon: 'pi pi-server'
+          icon: 'pi pi-bolt',
+          command: () => {
+           navigate('/vlogs/PENDING')
+          }
         }
   ]
   const menuLeft = useRef(null);

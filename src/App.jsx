@@ -21,22 +21,23 @@ function App() {
    const [username,setUsername] = useState("");
    const [isLoggedin,setIsloggedin] = useState(false);
    const [userrole,setUserrole] = useState("");
-   const [publisherid,setPublisherid] = useState(0);
    useEffect(()=>{
     setToastRef(toast.current);
     const token = sessionStorage.getItem("JWT");
      if(token){
+      
       const decoded = jwtDecode(token);
       
       setIsloggedin(true);
       setUsername(decoded?.name);
       setUserrole(decoded?.role);
-      setPublisherid(decoded?.publisherid);
-      console.log(decoded);
     }
    },[])
-   
-   
+  const token = sessionStorage.getItem("JWT");
+  const decoded = token ? jwtDecode(token) : null;
+
+const [publisherid, setPublisherid] = useState(decoded?.publisherid || null);
+   console.log(decoded)
   return (
     <>
 
@@ -56,7 +57,7 @@ function App() {
 
       <Route path="/publish" element={<Publisher publisherid={publisherid}/>}></Route>
       <Route path='/review'></Route>
-      <Route path='/vlogs/:status' element={<ViewVlog userrole={userrole} />}></Route>
+      <Route path='/vlogs/:status' element={<ViewVlog  userrole={userrole} publisherid={publisherid}/>}></Route>
       <Route path='/vlog/:id' element={<IndividualVlog />}></Route>
      </Routes>
           <Footer/>
