@@ -46,6 +46,7 @@ const ViewVlog = ({userrole,publisherid }) => {
   const handleComment = (e) => {
    
   }
+  
   const handleAdminReview = async (id,e) => {
     let jwt = sessionStorage.getItem("JWT");
     const adminreview = {
@@ -109,7 +110,8 @@ const ViewVlog = ({userrole,publisherid }) => {
                   <p className="mt-5 line-clamp-3 text-sm/6 text-gray-400">{post.description}</p>
                 </div>
                 
-                {userrole=="ADMIN" &&
+                {userrole=="ADMIN" ?
+                (
                   <div className="mt-6 flex items-center justify-end gap-x-6">
                     <div>
                     <button type="button" className="text-sm/6 font-semibold text-white"
@@ -136,6 +138,19 @@ const ViewVlog = ({userrole,publisherid }) => {
                       Approve
                     </button>
                   </div>
+                ):
+                (
+                  <div>
+                    <div className='flex items-center font-[10px]' onClick={()=>navigate('/publish',{state:{vlog:vlogs}})}>
+                      <i className='pi pi-pencil'></i>
+                      <span className='ml-2'>Edit</span>
+                    </div>
+                    <div className='flex items-center font-[10px] ml-4'>
+                      <i className='pi pi-thumbs-up'></i>
+                      <span className='ml-2'>Like</span>
+                    </div>
+                  </div>
+                )
                 }
               </article>
             )))
