@@ -16,7 +16,7 @@ const Publisher = ({publisherid}) => {
         description:"",
         image:null
      })
-     console.log(vlog)
+     console.log(formData)
      useEffect(()=>{
           console.log("vlog changed:", vlog);
         if(vlog){
@@ -37,24 +37,24 @@ const Publisher = ({publisherid}) => {
     const handleSubmit=async (e)=>{
         let jwt = sessionStorage.getItem("JWT");
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const publisherContent = {
-            heading:formData.heading,
-            description:formData.description,
-            image:preview !== null ? formData.image : null,
-            publisherId:publisherid 
-        }
-        console.log(publisherContent);
+        const data = new FormData();
+        
+            data.append("heading",formData.heading);
+            data.append("description",formData.description);
+            data.append( "publisherId",publisherid );
+            if(formData.image){
+            data.append("image",formData.image)
+            }
         
         if(!vlog){
-        const response = await api.post("/thoughtINC/create", publisherContent, {
+        const response = await api.post("/thoughtINC/create", data, {
             headers: {
                 Authorization: `Bearer ${jwt}`
             }
         })
         }
         else{
-            const response = await api.put("/thoughtINC/update", publisherContent, {
+            const response = await api.post(`/thoughtINC/update/${vlog[0].id}`, data, {
             headers: {
                 Authorization: `Bearer ${jwt}`
             }
@@ -139,9 +139,9 @@ const Publisher = ({publisherid}) => {
                   </div>
                   <p className="text-xs/5 text-gray-400">PNG, JPG, GIF up to 200KB</p>
                 </div>
-                {/* {preview && (
+                {preview && (
                     <img src={preview} alt="preview" className='w-64 h-64 object-cover rounded-lg border' />
-                )} */}
+                )}
               </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
               <button type="button" className="text-sm/6 font-semibold text-white"
