@@ -1,24 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../config/api';
+import Loader from '../Loader/Loader';
 
 const IndividualVlog = () => {
     const {id} = useParams();
     const [vlogdata,setVlogdata] = useState([]);
+    const [loading,setLoading] = useState(false);
     useEffect(()=>{
         viewVlogById();
     },[])
     const viewVlogById = async()=>{
-        const jwt = sessionStorage.getItem("JWT");
-        const data = await api.get(`thoughtINC/vlog/${id}`,{
-            headers:{
-                Authorization:`Bearer ${jwt}`
+        try {
+            setLoading(true);
+            const jwt = sessionStorage.getItem("JWT");
+
+            const data = await api.get(`thoughtINC/vlog/${id}`, {
+                headers: jwt ? { Authorization: `Bearer ${jwt}` } : {}
+            });
+            if (data) {
+                setVlogdata(data?.data);
             }
-        });
-        if(data){
-            setVlogdata(data?.data);
+        } catch (error) {
+            
         }
-        
+        finally{
+            setLoading(false)
+        }   
+    }
+    if(loading){
+       return <div className='my-10 mx-5'><Loader/></div>;
     }
   return (
     <div>

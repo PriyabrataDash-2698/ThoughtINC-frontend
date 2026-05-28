@@ -102,7 +102,7 @@ const ViewVlog = ({userrole,publisherid }) => {
                 </div>
                 <div className="group relative grow">
                   <h3 className="mt-3 text-lg/6 font-semibold text-white group-hover:text-gray-300">
-                    <a href="#" onClick={()=>handleIndividualVlog(post.id)}>
+                    <a href="" onClick={()=>handleIndividualVlog(post.id)}>
                       <span className="absolute inset-0" />
                       {post.heading}
                     </a>
