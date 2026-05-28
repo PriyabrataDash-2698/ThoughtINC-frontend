@@ -3,8 +3,7 @@ import React from 'react'
 import { Skeleton } from 'primereact/skeleton';
 
 
-
-const Skeleton = () => {
+const ShimmerEffect = () => {
   return (
       <div className="card">
           <div className="border-round border-1 surface-border p-4 surface-card">
@@ -26,4 +25,4 @@ const Skeleton = () => {
   )
 }
 
-export default Skeleton
+export default ShimmerEffect

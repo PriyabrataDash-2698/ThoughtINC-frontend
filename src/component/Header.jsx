@@ -55,7 +55,7 @@ userrole
   return (
     <>
       <div className='flex justify-between'>
-        <div className='text-lg sm:text-2xl font-bold'>
+        <div className='text-lg sm:text-2xl font-bold cursor-pointer' onClick={()=>navigate("/vlogs/APPROVED")}>
           Thought <span className='text-amber-400'>INC</span>
           <br />
           <span className='ml-1.5 sm:ml-2 text-[8px] sm:text-[10px]'>A FalseFire Company</span>
@@ -87,13 +87,14 @@ userrole
             aria-controls="popup_menu_left" 
             aria-haspopup 
               className="
+              cursor-pointer
           w-10 h-10 rounded-full bg-blue-500 text-white 
           flex items-center justify-center font-bold text-lg hadow-md"
             >
               {initials}
               <i className='pi pi-chevron-down font-size[10px]'></i>
             </div>
-            <p className='flex sm:items-center text-lg sm:text-2xl font-bold ml-2'>
+            <p className='flex sm:items-start text-lg sm:text-2xl font-bold ml-2'>
 
               Welcome {username}</p>
             <div className='ml-2'>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../config/api';
 import Loader from '../Loader/Loader';
+import ShimmerEffect from '../skeleton/ShimmerEffect';
 
 const IndividualVlog = () => {
     const {id} = useParams();
@@ -29,7 +30,7 @@ const IndividualVlog = () => {
         }   
     }
     if(loading){
-       return <div className='my-10 mx-5'><Loader/></div>;
+       return <ShimmerEffect/>;
     }
   return (
     <div>

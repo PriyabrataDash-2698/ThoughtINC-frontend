@@ -48,34 +48,35 @@ const Publisher = ({publisherid}) => {
         
         if(!vlog){
         const response = await api.post("/thoughtINC/create", data, {
-            headers: {
-                Authorization: `Bearer ${jwt}`
-            }
+                         headers: {Authorization: `Bearer ${jwt}`}
         })
-        }
-        else{
-            const response = await api.post(`/thoughtINC/update/${vlog[0].id}`, data, {
-            headers: {
-                Authorization: `Bearer ${jwt}`
-            }
-        })
-        }
         if(response){
             showToast({
                 severity: 'success',
                 summary: 'Success',
                 detail: 'Vlog Created Successfully',
                 life: 3000
-            });       
+            });   
+        }
+       }
+        else{
+            const response = await api.post(`/thoughtINC/update/${vlog[0].id}`, data, {
+                             headers: {Authorization: `Bearer ${jwt}`}
+            })
+            if(response){
+                showToast({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Vlog Updated Successfully',
+                    life: 3000
+                });   
+            } 
         }
     }
-    const handleImagePreview = (e) =>{
-        const file = e.target.files[0];
-        if(file){
-            const imageUrl = URL.createObjectURL(file);
-            setPreview(imageUrl);
-        }
-    }
+   
+    const isFormValid =
+        formData.heading.trim() !== "" &&
+        formData.description.trim() !== "";
     const handleReset = ()=>{
         const doNull ={
              heading:'',
@@ -133,9 +134,19 @@ const Publisher = ({publisherid}) => {
                       className="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-indigo-500 hover:text-indigo-300"
                     >
                       <span>Upload an image related to your content</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={(e)=>setFormData({...formData,image:e.target.files[0]})}/>
+                              <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={(e) => {
+                                  const file = e.target.files[0];
+
+                                  setFormData({
+                                      ...formData,
+                                      image: file,
+                                  });
+
+                                  if (file) {
+                                      setPreview(URL.createObjectURL(file));
+                                  }
+                              }} />
                     </label>
-                    <p className="pl-1">or drag and drop</p>
                   </div>
                   <p className="text-xs/5 text-gray-400">PNG, JPG, GIF up to 200KB</p>
                 </div>
@@ -149,8 +160,9 @@ const Publisher = ({publisherid}) => {
                   Cancel
               </button>
               <button
+                    disabled={!isFormValid}
                   type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  className={!isFormValid ? "disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400":"rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"}
               >
                   Submit to Admin
               </button>

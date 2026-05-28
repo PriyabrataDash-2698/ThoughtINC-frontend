@@ -5,12 +5,14 @@ import 'primeicons/primeicons.css';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { useNavigate, useParams } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 const ViewVlog = ({userrole,publisherid }) => {
   const { status } = useParams();
   const [vlogs, setVlogs] = useState([]);
   const [visible, setVisible] = useState(false);
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
+  const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
   
 
@@ -20,6 +22,7 @@ const ViewVlog = ({userrole,publisherid }) => {
     let jwt = sessionStorage.getItem("JWT");
     const fetchData = async () => {
       try {
+        setLoading(true);
         if(status=="APPROVED"){
           const res = await api.get(`/thoughtINC/public/vlog`);
           setVlogs(res.data);
@@ -39,6 +42,9 @@ const ViewVlog = ({userrole,publisherid }) => {
       } catch (err) {
         console.error(err);
       }
+      finally{
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -46,6 +52,9 @@ const ViewVlog = ({userrole,publisherid }) => {
   const handleComment = (e) => {
    
   }
+  if(loading){
+       return <Loader/>;
+    }
   
   const handleAdminReview = async (id,e) => {
     let jwt = sessionStorage.getItem("JWT");
@@ -139,13 +148,13 @@ const ViewVlog = ({userrole,publisherid }) => {
                   </div>
                 }
                 {userrole=="USER" &&
-                  <div>
-                    <div className='flex items-center font-[10px]' onClick={()=>navigate('/publish',{state:{vlog:vlogs}})}>
-                      <i className='pi pi-pencil'></i>
+                  <div className='text-[12px] flex'>
+                    <div className='flex items-center' onClick={()=>navigate('/publish',{state:{vlog:vlogs}})}>
+                      <i className='pi pi-pencil text-[10px]'></i>
                       <span className='ml-2'>Edit</span>
                     </div>
-                    <div className='flex items-center font-[10px] ml-4'>
-                      <i className='pi pi-thumbs-up'></i>
+                    <div className='flex items-center ml-5'>
+                      <i className='pi pi-thumbs-up text-[10px]'></i>
                       <span className='ml-2'>Like</span>
                     </div>
                   </div>
