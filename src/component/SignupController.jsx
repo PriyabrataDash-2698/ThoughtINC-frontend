@@ -9,8 +9,7 @@ import { showToast } from "../hook/UseToast";
 export default function SignupController({showsignup,setShowsignup}) {
     const [selectedRole, setSelectedRole] = useState(null);
     const roles = [
-        { name: 'ADMIN' },
-        { name: 'USER' },
+        { name: 'USER' }
     ];
     const handleSignIn = async(e) =>{
         e.preventDefault();
@@ -73,10 +72,10 @@ export default function SignupController({showsignup,setShowsignup}) {
                                     placeholder="Select a Role" className="w-full md:w-14rem" />
                         </div>
                         <div className="py-2 gap-2">
-                            <Button label="Sign-In" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label = {showsignup?"Sign-Up":"Sign-In"} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 !bg-white"></Button>
                         </div>
                         <div>
-                            <Button onClick={(e) => hide(e)}  label="Cancel" text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button onClick={(e) => hide(e)}  label="Cancel" text className="p-3 w-full !text-white-50 border-1 border-white-alpha-30 !bg-red-400"></Button>
                         </div>
                         </form>
                     </div>

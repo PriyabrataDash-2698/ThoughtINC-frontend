@@ -32,6 +32,13 @@ userrole
           command: () => {
            navigate('/vlogs/REJECTED')
           }
+        },
+        {
+          label: 'Publish Vlog',
+          icon: 'pi pi-upload',
+          command: () => {
+           navigate('/publish')
+          }
         }
   ]
    const Adminitems = [
@@ -48,9 +55,10 @@ userrole
   return (
     <>
       <div className='flex justify-between'>
-        <div className='text-2xl font-bold'>
+        <div className='text-lg sm:text-2xl font-bold'>
           Thought <span className='text-amber-400'>INC</span>
-          <span className='ml-2 text-[10px]'>A FalseFire Company</span>
+          <br />
+          <span className='ml-1.5 sm:ml-2 text-[8px] sm:text-[10px]'>A FalseFire Company</span>
         </div>
         {!isLoggedin ?
           (<div className='flex'>
@@ -83,8 +91,9 @@ userrole
           flex items-center justify-center font-bold text-lg hadow-md"
             >
               {initials}
+              <i className='pi pi-chevron-down font-size[10px]'></i>
             </div>
-            <p className='flex items-center text-2xl font-bold ml-2'>
+            <p className='flex sm:items-center text-lg sm:text-2xl font-bold ml-2'>
 
               Welcome {username}</p>
             <div className='ml-2'>
