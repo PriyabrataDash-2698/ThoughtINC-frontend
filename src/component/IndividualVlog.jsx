@@ -38,7 +38,7 @@ const IndividualVlog = () => {
             <div className='mx-5 my-5'>
                 <h2 className='text-4xl font-semibold tracking-tight text-pretty wrap-break-word'>{vlogdata?.heading}</h2>
             </div>
-            <div className='w-[100] h-[10] flex justify-center'>
+            <div className='w-full h-auto object-cover flex justify-center'>
             <img src={vlogdata?.uploadImage} alt="" />
             </div>
             <div className='text-xl font-semibold mx-5 my-5'>
