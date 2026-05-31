@@ -37,7 +37,6 @@ function App() {
   const decoded = token ? jwtDecode(token) : null;
 
 const [publisherid, setPublisherid] = useState(decoded?.publisherid || null);
-   console.log(decoded)
   return (
     <>
 

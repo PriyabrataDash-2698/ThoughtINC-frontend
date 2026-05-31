@@ -13,16 +13,12 @@ const Header = ({ username,
   setIsloggedin,
 userrole
 ,setUserrole }) => {
-  console.log(userrole);
   
   const [showlogin, setShowlogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
   const initials = username.substring(0, 2).toUpperCase();
   const handleLogout = () => {
-    sessionStorage.clear();
-
-    setUsername("");
-    setIsloggedin(false);
+    
   }
   const navigate = useNavigate();
   const publisheritems = [ 
@@ -39,6 +35,15 @@ userrole
           command: () => {
            navigate('/publish')
           }
+        },
+        {
+          label: 'Logout',
+          icon: 'pi pi-sign-out',
+          command: () => {
+           sessionStorage.clear();
+           setUsername("");
+           setIsloggedin(false);
+          }
         }
   ]
    const Adminitems = [
@@ -47,6 +52,15 @@ userrole
           icon: 'pi pi-bolt',
           command: () => {
            navigate('/vlogs/PENDING')
+          }
+        },
+         {
+          label: 'Logout',
+          icon: 'pi pi-sign-out',
+          command: () => {
+           sessionStorage.clear();
+           setUsername("");
+           setIsloggedin(false);
           }
         }
   ]
@@ -97,9 +111,6 @@ userrole
             <p className='flex sm:items-start text-lg sm:text-2xl font-bold ml-2'>
 
               Welcome {username}</p>
-            <div className='ml-2'>
-              <Button className='bg-blue-500' raised onClick={handleLogout}>Logout</Button>
-            </div>
           </div>)
         }
       </div>

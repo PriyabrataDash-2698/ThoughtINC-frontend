@@ -4,7 +4,7 @@ import { api } from '../config/api'
 import 'primeicons/primeicons.css';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 const ViewVlog = ({userrole,publisherid }) => {
   const { status } = useParams();
@@ -13,12 +13,13 @@ const ViewVlog = ({userrole,publisherid }) => {
   const [visibleadmin, setVisibleadmin] = useState(false);
   const [admincomment,setAdmincomment] = useState("");
   const [loading,setLoading] = useState(false);
+  const [isliked,setIsliked] = useState({});
   const navigate = useNavigate();
   
 
+  const location = useLocation();
   
   useEffect(() => {
-    console.log(publisherid)
     let jwt = sessionStorage.getItem("JWT");
     const fetchData = async () => {
       try {
@@ -40,7 +41,6 @@ const ViewVlog = ({userrole,publisherid }) => {
         setVlogs(res.data)
       }
       } catch (err) {
-        console.error(err);
       }
       finally{
         setLoading(false);
@@ -55,6 +55,37 @@ const ViewVlog = ({userrole,publisherid }) => {
   if(loading){
        return <Loader/>;
     }
+  const handleLike = async (vlogId) =>{
+     let jwt = sessionStorage.getItem("JWT");
+      const newLikeStatus = !isliked[vlogId];
+     setIsliked(prev=>({
+      ...prev,
+      [vlogId]:newLikeStatus
+    }));
+    const payload = {
+      vlogId: vlogId
+    }
+    try {
+      if(newLikeStatus){
+        const data = await api.post('/thoughtInc/likes', payload, {
+          headers: jwt ? { Authorization: `Bearer ${jwt}`, } : {}
+        })
+      }
+      else {
+        const data = await api.delete('/thoughtInc/likes', {
+          data: {vlogId: vlogId},
+          headers: jwt? { Authorization: `Bearer ${jwt}` }: {}
+        });
+      }
+    } catch (error) {
+      
+      setIsliked(prev => ({
+      ...prev,
+      [vlogId]: !newLikeStatus
+    }));
+    }
+  }
+   
   
   const handleAdminReview = async (id,e) => {
     let jwt = sessionStorage.getItem("JWT");
@@ -73,7 +104,6 @@ const ViewVlog = ({userrole,publisherid }) => {
      }
   }
   const handleIndividualVlog = (vlogid) =>{
-    console.log("hiii from vlogid",vlogid);
     navigate(`/vlog/${vlogid}`)
   }
 
@@ -119,7 +149,7 @@ const ViewVlog = ({userrole,publisherid }) => {
                   <p className="mt-5 line-clamp-3 text-sm/6 text-gray-400">{post.description}</p>
                 </div>
                 
-                {userrole=="ADMIN" &&
+                {userrole=="ADMIN" && location.pathname == "/vlogs/PENDING"?
                   <div className="mt-6 flex items-center justify-end gap-x-6">
                     <div>
                     <button type="button" className="text-sm/6 font-semibold text-white"
@@ -145,19 +175,27 @@ const ViewVlog = ({userrole,publisherid }) => {
                     >
                       Approve
                     </button>
-                  </div>
+                  </div>:null
                 }
                 {userrole=="USER" &&
+                (
                   <div className='text-[12px] flex'>
-                    <div className='flex items-center' onClick={()=>navigate('/publish',{state:{vlog:vlogs}})}>
-                      <i className='pi pi-pencil text-[10px]'></i>
-                      <span className='ml-2'>Edit</span>
-                    </div>
-                    <div className='flex items-center ml-5'>
-                      <i className='pi pi-thumbs-up text-[10px]'></i>
+                    {post.publisherId == publisherid ?
+                      <div className='flex items-center cursor-pointer' onClick={()=>navigate('/publish',{state:{vlog:post}})}>
+                        <i className='pi pi-pencil text-[10px]'></i>
+                        <span className='ml-2'>Edit</span>
+                      </div>:null
+                    }
+                    <div className='flex items-center ml-5 cursor-pointer' onClick={()=>handleLike(post.id)}>
+                      {isliked[post.id]?
+                      <i className='pi pi-thumbs-up-fill text-[10px]'></i>
+                      :<i className='pi pi-thumbs-up text-[10px]'></i>
+                      }
                       <span className='ml-2'>Like</span>
                     </div>
+
                   </div>
+                )
                 }               
               </article>
             )))

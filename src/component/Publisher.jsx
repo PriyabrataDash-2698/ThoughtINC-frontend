@@ -16,16 +16,13 @@ const Publisher = ({publisherid}) => {
         description:"",
         image:null
      })
-     console.log(formData)
+     
      useEffect(()=>{
-          console.log("vlog changed:", vlog);
         if(vlog){
             setFormData({
-                heading:vlog[0].heading ?? "",
-                description:vlog[0].description ?? "",
-                image:vlog[0
-
-                ].uploadImage ?? null
+                heading:vlog.heading ?? "",
+                description:vlog.description ?? "",
+                image:vlog.uploadImage ?? null
             })
         }
      },[vlog])
@@ -51,6 +48,11 @@ const Publisher = ({publisherid}) => {
                          headers: {Authorization: `Bearer ${jwt}`}
         })
         if(response){
+            setFormData({
+                heading:"",
+                description:"",
+                image:null
+            })
             showToast({
                 severity: 'success',
                 summary: 'Success',
@@ -60,7 +62,7 @@ const Publisher = ({publisherid}) => {
         }
        }
         else{
-            const response = await api.post(`/thoughtINC/update/${vlog[0].id}`, data, {
+            const response = await api.post(`/thoughtINC/update/${vlog.id}`, data, {
                              headers: {Authorization: `Bearer ${jwt}`}
             })
             if(response){
@@ -83,7 +85,6 @@ const Publisher = ({publisherid}) => {
             description:'',
             image:setPreview(null)
         }
-        console.log(doNull)
     }
   return (
     <div>
