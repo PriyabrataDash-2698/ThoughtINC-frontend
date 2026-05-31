@@ -32,6 +32,17 @@ const IndividualVlog = () => {
     if(loading){
        return <ShimmerEffect/>;
     }
+    const handleCopyLink = async () => {
+        try {
+            await navigator.share({
+                title: "Check out this Blog",
+                text: "ThoughtINC Blogs,From The House of FALSEFIRE",
+                url: window.location.href,
+            });
+        } catch (error) {
+            console.log("Share cancelled", error);
+        }
+    };
   return (
     <div>
         <div className='my-10 mx-5'>
@@ -44,6 +55,11 @@ const IndividualVlog = () => {
             <div className='lg:text-xl font-semibold mx-5 my-5'>
                 <p>{vlogdata?.description}</p>
             </div>
+        </div>
+        <div className='flex justify-center'>
+              <button className='bg-blue-400 mb-2 mt-2' onClick={handleCopyLink}>
+                 <i className='pi pi-share-alt mr-2'></i> Share your Blog
+              </button>
         </div>
     </div>
   )
