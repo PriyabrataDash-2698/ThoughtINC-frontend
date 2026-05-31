@@ -58,7 +58,7 @@ const IndividualVlog = () => {
         </div>
         <div className='flex justify-center'>
               <button className='bg-blue-400 mb-2 mt-2' onClick={handleCopyLink}>
-                 <i className='pi pi-share-alt mr-2'></i> Share your Blog
+                 <i className='pi pi-share-alt mr-2'></i> Share Blog
               </button>
         </div>
     </div>
