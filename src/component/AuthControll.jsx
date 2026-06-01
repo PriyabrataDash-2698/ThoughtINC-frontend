@@ -35,6 +35,7 @@ export default function AuthControll({show,setShow,setUsername,setIsloggedin}) {
             setUsername(decoded.name);
 
             setIsloggedin(true);
+            window.location.reload();
         }
         
     }

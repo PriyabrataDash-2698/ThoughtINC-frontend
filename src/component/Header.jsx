@@ -43,6 +43,7 @@ userrole
            sessionStorage.clear();
            setUsername("");
            setIsloggedin(false);
+           window.location.href = '/vlogs/APPROVED'
           }
         }
   ]
@@ -61,6 +62,7 @@ userrole
            sessionStorage.clear();
            setUsername("");
            setIsloggedin(false);
+           window.location.href = '/vlogs/APPROVED'
           }
         }
   ]
