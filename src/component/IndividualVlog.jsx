@@ -46,6 +46,9 @@ const IndividualVlog = () => {
   return (
     <div>
         <div className='my-10 mx-5'>
+            <div className='flex justify-end'>
+                <i className='pi pi-share-alt mr-2' onClick={handleCopyLink}></i>
+            </div>
             <div className='mx-5 my-5'>
                 <h2 className='lg:text-4xl font-semibold tracking-tight text-pretty wrap-break-word'>{vlogdata?.heading}</h2>
             </div>
@@ -53,13 +56,11 @@ const IndividualVlog = () => {
             <img src={vlogdata?.uploadImage} alt="" />
             </div>
             <div className='lg:text-xl font-semibold mx-5 my-5'>
-                <p>{vlogdata?.description}</p>
+                <p className='text-justify text-sm/7'>{vlogdata?.description}</p>
             </div>
-        </div>
-        <div className='flex justify-center'>
-              <button className='bg-blue-400 mb-2 mt-2' onClick={handleCopyLink}>
-                 <i className='pi pi-share-alt mr-2'></i> Share Blog
-              </button>
+            <div className='bg-green-500 rounded-2xl'>
+            <span>Author: xyz</span>
+            </div>
         </div>
     </div>
   )
