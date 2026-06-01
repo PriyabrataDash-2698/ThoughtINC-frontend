@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { api } from '../config/api';
 import { showToast } from '../hook/UseToast';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
         
@@ -16,7 +16,7 @@ const Publisher = ({publisherid}) => {
         description:"",
         image:null
      })
-     
+     const navigate = useNavigate();
      useEffect(()=>{
         if(vlog){
             setFormData({
@@ -48,17 +48,13 @@ const Publisher = ({publisherid}) => {
                          headers: {Authorization: `Bearer ${jwt}`}
         })
         if(response){
-            setFormData({
-                heading:"",
-                description:"",
-                image:null
-            })
             showToast({
                 severity: 'success',
                 summary: 'Success',
                 detail: 'Vlog Created Successfully',
                 life: 3000
-            });   
+            });  
+            navigate('/vlogs/APPROVED')
         }
        }
         else{
@@ -71,7 +67,8 @@ const Publisher = ({publisherid}) => {
                     summary: 'Success',
                     detail: 'Vlog Updated Successfully',
                     life: 3000
-                });   
+                }); 
+                navigate('/vlogs/APPROVED')  
             } 
         }
     }
