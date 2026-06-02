@@ -56,8 +56,8 @@ const IndividualVlog = () => {
                 </button>
                 </div>
             </div>
-            <div className='w-full h-auto object-cover flex justify-center'>
-            <img src={vlogdata?.uploadImage} alt="" />
+            <div className='w-full h-auto object-cover flex justify-center  rounded-2xl'>
+            <img src={vlogdata?.uploadImage} alt="" className='rounded-2xl'/>
             </div>
             <div className='lg:text-xl font-semibold mx-5 my-5'>
                 <p className='text-justify text-sm/7'>{vlogdata?.description}</p>
