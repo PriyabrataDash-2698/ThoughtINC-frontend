@@ -49,14 +49,14 @@ const IndividualVlog = () => {
                 
             </div>
             <div className='mx-5 my-5'>
-                <div className='flex justify-around'>
-                <h2 className='lg:text-4xl font-semibold tracking-tight text-pretty wrap-break-word'>{vlogdata?.heading}</h2>
-                <button onClick={handleCopyLink}>
+                <div className='flex justify-end'>
+                    <button onClick={handleCopyLink}>
                 <i className='pi pi-share-alt mr-2' ></i>
                 </button>
                 </div>
+                <h2 className='lg:text-4xl font-semibold tracking-tight text-pretty wrap-break-word'>{vlogdata?.heading}</h2>
             </div>
-            <div className='w-full h-auto object-cover flex justify-center  rounded-2xl'>
+            <div className='w-full h-auto object-cover flex justify-center rounded-2xl individualvlog-image-border'>
             <img src={vlogdata?.uploadImage} alt="" className='rounded-2xl'/>
             </div>
             <div className='lg:text-xl font-semibold mx-5 my-5'>
