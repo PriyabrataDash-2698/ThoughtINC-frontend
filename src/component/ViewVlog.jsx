@@ -93,15 +93,23 @@ const ViewVlog = ({userrole,publisherid }) => {
       comment:e=="REJECTED" ? admincomment : null,
       status: e
     }
-    
-  const res = await api.put(`/thoughtINC/review/${id}`,adminreview,{
-    headers:{
-      Authorization:`Bearer ${jwt}`
+    try {
+      setLoading(true);
+      const res = await api.put(`/thoughtINC/review/${id}`, adminreview, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+      if (res) {
+        setVisibleadmin(false);
+      }
+    } catch (error) {
+      
     }
-  });
-     if(res){
-      setVisibleadmin(false);
-     }
+    finally{
+      setLoading(false)
+    }
+  
   }
   const handleIndividualVlog = (vlogid) =>{
     navigate(`/vlog/${vlogid}`)

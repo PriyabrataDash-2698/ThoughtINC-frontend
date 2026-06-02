@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { api } from '../config/api';
 import { showToast } from '../hook/UseToast';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 
 
         
@@ -9,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Publisher = ({publisherid}) => {
 
      const location = useLocation();
-
+     const [isloading,setIsloading] = useState(false);
      const vlog = location.state?.vlog;
      const [formData,setFormData] = useState({
         heading:"",
@@ -42,20 +43,22 @@ const Publisher = ({publisherid}) => {
             if(formData.image){
             data.append("image",formData.image)
             }
-        
+        try {
+            setIsloading(true)
         if(!vlog){
-        const response = await api.post("/thoughtINC/create", data, {
-                         headers: {Authorization: `Bearer ${jwt}`}
-        })
-        if(response){
-            showToast({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Vlog Created Successfully',
-                life: 3000
-            });  
-            navigate('/vlogs/APPROVED')
-        }
+            const response = await api.post("/thoughtINC/create", data, {
+                            headers: {Authorization: `Bearer ${jwt}`}
+            })
+            if(response){
+                setIsloading(true)
+                showToast({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Vlog Created Successfully',
+                    life: 3000
+                });  
+                navigate('/vlogs/APPROVED')
+            }
        }
         else{
             const response = await api.post(`/thoughtINC/update/${vlog.id}`, data, {
@@ -71,6 +74,15 @@ const Publisher = ({publisherid}) => {
                 navigate('/vlogs/APPROVED')  
             } 
         }
+        } catch (error) {
+            
+        }
+        finally{
+            setIsloading(false)
+        }
+    }
+    if(isloading){
+        return <Loader/>
     }
    
     const isFormValid =
