@@ -45,11 +45,8 @@ const IndividualVlog = () => {
   return (
     <div>
         <div className='my-10 mx-5'>
-            <div className='flex justify-end'>
-                
-            </div>
             <div className='mx-5 my-5'>
-                <div className='flex justify-end'>
+                <div className='flex justify-start'>
                     <button onClick={handleCopyLink}>
                 <i className='pi pi-share-alt mr-2' ></i>
                 </button>
