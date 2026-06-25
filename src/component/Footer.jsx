@@ -3,33 +3,8 @@ import { useEffect, useRef, useState } from "react";
 
 
 export default function Footer() {
-  const [visible, setVisible] = useState(true);
-  const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Always show at top
-      if (currentScrollY < 50) {
-        setVisible(true);
-      } else {
-        // Show when scrolling down
-        setVisible(currentScrollY > lastScrollY.current);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <footer className={`fixed bottom-0 left-0 right-0 z-50 bg-glass-dark px-4 py-6 transition-transform duration-300 ${
-        visible ? "translate-y-0" : "translate-y-full"
-      }`}>
+    <footer className="z-50 bg-glass px-4 py-6 transition-transform duration-300">
       
         <div className="border border-slate-700/50 bg-[#020d2b] rounded-2xl flex flex-col items-center justify-center">
           

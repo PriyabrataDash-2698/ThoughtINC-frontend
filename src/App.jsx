@@ -40,28 +40,28 @@ const [publisherid, setPublisherid] = useState(decoded?.publisherid || null);
   return (
     <>
 
-    <PrimeReactProvider>
-     <BrowserRouter>
-     <Toast ref={toast} />
-    <Header username={username}
+      <PrimeReactProvider>
+        <BrowserRouter>
+          <Toast ref={toast} />
+          <Header username={username}
             setUsername={setUsername}
             isLoggedin={isLoggedin}
             setIsloggedin={setIsloggedin}
             userrole={userrole}
-            setUserrole={setUserrole}/>
-     <Routes>
+            setUserrole={setUserrole} />
+          <Routes>
 
-      <Route path='/' element={<Navigate to="/vlogs/APPROVED" replace/>}></Route>
+            <Route path='/' element={<Navigate to="/vlogs/APPROVED" replace />}></Route>
 
 
-      <Route path="/publish" element={<Publisher publisherid={publisherid}/>}></Route>
-      <Route path='/review'></Route>
-      <Route path='/vlogs/:status' element={<ViewVlog  userrole={userrole} publisherid={publisherid}/>}></Route>
-      <Route path='/vlog/:id' element={<IndividualVlog />}></Route>
-     </Routes>
-          <Footer/>
-     </BrowserRouter>
-     </PrimeReactProvider>
+            <Route path="/publish" element={<Publisher publisherid={publisherid} />}></Route>
+            <Route path='/review'></Route>
+            <Route path='/vlogs/:status' element={<ViewVlog userrole={userrole} publisherid={publisherid} />}></Route>
+            <Route path='/vlog/:id' element={<IndividualVlog />}></Route>
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </PrimeReactProvider>
 
     </>
   )
