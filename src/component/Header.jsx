@@ -91,7 +91,7 @@ userrole
   const toast = useRef(null);
   return (
     <>
-    <div className="z-50 bg-glass px-4 py-2 shadow-md transition-transform duration-300">
+    <div className="fixed w-[100%] z-50 bg-glass px-4 py-2 shadow-md transition-transform duration-300">
         <div className='flex justify-between'>
           <div className='text-lg sm:text-2xl font-bold cursor-pointer' onClick={()=>navigate("/vlogs/APPROVED")}>
             Thought <span className='text-amber-400'>INC</span>
