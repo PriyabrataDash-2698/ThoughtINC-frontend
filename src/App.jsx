@@ -52,8 +52,6 @@ const [publisherid, setPublisherid] = useState(decoded?.publisherid || null);
           <Routes>
 
             <Route path='/' element={<Navigate to="/vlogs/APPROVED" replace />}></Route>
-
-
             <Route path="/publish" element={<Publisher publisherid={publisherid} />}></Route>
             <Route path='/review'></Route>
             <Route path='/vlogs/:status' element={<ViewVlog userrole={userrole} publisherid={publisherid} />}></Route>

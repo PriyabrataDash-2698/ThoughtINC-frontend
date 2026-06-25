@@ -122,8 +122,8 @@ const ViewVlog = ({userrole,publisherid }) => {
     </div>
   );
   return (
-    <div>
-      <div className="bg-gray-900 py-24 sm:py-32">
+    <div className='main-content'>
+      <div className="bg-gray-900 py-24 sm:py-32 min-h-[calc(100vh-140px)]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0 flex justify-end">
             {userrole ?
